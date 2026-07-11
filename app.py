@@ -7,7 +7,7 @@ import pandas as pd
 import os
 
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
+api_key = os.getenv("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
 
 LANGUAGES = {
@@ -83,11 +83,10 @@ target_language = st.selectbox("Translate to:", list(LANGUAGES.keys()))
 
 if st.button("Translate & Speak"):
     input_text = ""
-    st.write(f"DEBUG: uploaded_file = {uploaded_file}")
     if uploaded_file is not None:
         input_text = extract_text_from_file(uploaded_file)
-    if user_text.strip() != "":
-        st.info("Both text and a file were provided — using the uploaded file. Remove the file to translate your typed text instead.")
+        if user_text.strip() != "":
+            st.info("Both text and a file were provided - using the uploaded file. Remove the file to translate your typed text instead.")
     else:
         input_text = user_text
 
