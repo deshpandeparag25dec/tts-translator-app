@@ -83,6 +83,7 @@ target_language = st.selectbox("Translate to:", list(LANGUAGES.keys()))
 
 if st.button("Translate & Speak"):
     input_text = ""
+    st.write(f"DEBUG: uploaded_file = {uploaded_file}")
     if uploaded_file is not None:
         input_text = extract_text_from_file(uploaded_file)
     if user_text.strip() != "":
